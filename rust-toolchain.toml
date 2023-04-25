@@ -1,0 +1,4 @@
+[toolchain]
+channel = "stable"
+# channel = "1.42.0" # atcoder
+# channel = "1.66.0" # cf

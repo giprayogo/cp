@@ -1,4 +1,5 @@
 use std::{fmt, io, str::FromStr};
+use std::f64::consts::PI;
 
 fn take_single<T>() -> T
 where
@@ -11,6 +12,6 @@ where
 }
 
 fn main() {
-    let x: f64 = take_single();
-    println!("{:7.3}", x)
+    let n = take_single();
+    println!("{1:.0$}", n, PI);
 }

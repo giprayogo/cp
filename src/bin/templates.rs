@@ -1,5 +1,6 @@
 use std::{fmt, io, str::FromStr};
 
+#[allow(unused)]
 fn take_single<T>() -> T
 where
     T: FromStr,
@@ -10,6 +11,7 @@ where
     input.trim().parse().unwrap()
 }
 
+#[allow(unused)]
 fn take_vector<T>() -> Vec<T> 
 where
     T: FromStr,

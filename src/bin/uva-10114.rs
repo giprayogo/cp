@@ -80,7 +80,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 for _ in from.0..to.0 {
                     paid_in += 1;
                     owes -= monthly;
-                    current_value *= (1.0 - from.1);
+                    current_value *= 1.0 - from.1;
                     if owes < current_value {
                         if paid_in > 1 {
                             println!("{} months", paid_in);

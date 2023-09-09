@@ -2,6 +2,9 @@ use std::error;
 use std::fmt;
 use std::io;
 
+#[path = "../utils.rs"]
+mod utils;
+
 #[derive(Debug, Clone, Copy)]
 enum Wire {
     X,
@@ -85,18 +88,14 @@ fn main() -> Result<(), Box<dyn error::Error>> {
 
     let mut output_buffer = Vec::new();
     loop {
-        buf.clear();
-        stdin.read_line(&mut buf)?;
-        let length: u32 = buf.trim().parse()?;
+        let length: u32 = stdin!(buf, stdin);
         match length {
             0 => break,
             _ => {}
         }
 
         let mut wire = Wire::X;
-        buf.clear();
-        stdin.read_line(&mut buf)?;
-        for instruction in buf.trim().split_whitespace() {
+        for instruction in stdins!(buf, stdin) {
             let bend = match instruction {
                 "+z" => Bend::PlusZ,
                 "-z" => Bend::MinZ,

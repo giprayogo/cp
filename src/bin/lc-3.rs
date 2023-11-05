@@ -10,7 +10,7 @@ impl Solution {
     pub fn length_of_longest_substring(s: String) -> i32 {
         let mut l = s.chars();
         let mut r = s.chars();
-        // let mut charset = HashSet::new();
+        let mut charset = HashSet::new();
         let mut maxlen = 0;
         let mut len = 0;
 

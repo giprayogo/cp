@@ -38,7 +38,7 @@ impl Display for AttackBoard {
         let mut row_strings = vec![];
         for row in self.board {
             row_strings.push(row.iter().map(|x| {
-                if *x == true {
+                if *x {
                     "■"
                 } else {
                     "□"
@@ -82,10 +82,7 @@ impl Display for ChessBoard {
         let mut row_strings = vec![];
         for row in self.board {
             row_strings.push(row.iter().map(|x| {
-                match *x {
-                    Some(v) => v,
-                    None => '.',
-                }
+                (*x).unwrap_or('.')
             }).join(" "));
         }
         write!(f, "{}", row_strings.join("\n"))
@@ -112,11 +109,7 @@ impl Position {
     }
 
     fn oob(&self) -> bool {
-        if !((0..8).contains(&self.row) && (0..8).contains(&self.column)) {
-            true
-        } else {
-            false
-        }
+        !((0..8).contains(&self.row) && (0..8).contains(&self.column))
     }
 }
 
@@ -312,7 +305,7 @@ fn main() -> Result<(), Box<dyn error::Error>> {
         let mut count = 0;
         for r in 0..8 {
             for c in 0..8 {
-                if (attack.board[r][c] == false) && (occ.board[r][c].is_none()) {
+                if (!attack.board[r][c]) && (occ.board[r][c].is_none()) {
                     count += 1;
                 }
             }

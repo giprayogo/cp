@@ -11,7 +11,6 @@ fn main() -> Result<(), Box<dyn error::Error>> {
         stdin.read_line(&mut buf)?;
 
         let num: Vec<i32> = buf
-            .trim()
             .split_whitespace()
             .map(|x| x.parse().unwrap())
             .collect();
@@ -28,7 +27,7 @@ fn main() -> Result<(), Box<dyn error::Error>> {
         for i in num.iter().skip(1) {
             // println!("{i}, {pi}");
             let delta = (i - pi).abs();
-            if !(delta < n) {
+            if delta >= n {
                 output_buf.push("Not jolly");
                 continue 'a;
             } 
@@ -38,7 +37,7 @@ fn main() -> Result<(), Box<dyn error::Error>> {
         // println!("jolly");
         // output_buf.push("Jolly")
         for c in check.iter() {
-            if *c == false {
+            if !*c {
                 output_buf.push("Not jolly");
                 continue 'a;
             }

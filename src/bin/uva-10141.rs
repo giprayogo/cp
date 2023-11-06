@@ -1,5 +1,5 @@
-use std::io;
 use std::error;
+use std::io;
 
 fn main() -> Result<(), Box<dyn error::Error>> {
     let mut buf = String::new();
@@ -10,7 +10,7 @@ fn main() -> Result<(), Box<dyn error::Error>> {
         i += 1;
         buf.clear();
         stdin.read_line(&mut buf)?;
-        let (n, p) = match buf.trim().split_whitespace().collect::<Vec<_>>()[..] {
+        let (n, p) = match buf.split_whitespace().collect::<Vec<_>>()[..] {
             [n, p] => {
                 let n: u32 = n.parse()?;
                 let p: u32 = p.parse()?;
@@ -18,7 +18,7 @@ fn main() -> Result<(), Box<dyn error::Error>> {
                     break;
                 }
                 (n, p)
-            },
+            }
             _ => panic!("Invalid buffer for n/p: {}", buf),
         };
 
@@ -40,12 +40,12 @@ fn main() -> Result<(), Box<dyn error::Error>> {
 
             buf.clear();
             stdin.read_line(&mut buf)?;
-            let (d, r) = match buf.trim().split_whitespace().collect::<Vec<_>>()[..] {
+            let (d, r) = match buf.split_whitespace().collect::<Vec<_>>()[..] {
                 [d, r] => {
                     let d: f64 = d.parse()?;
                     let r: u32 = r.parse()?;
                     (d, r)
-                },
+                }
                 _ => panic!("Invalid buffer for d/r: {}", buf),
             };
 
@@ -58,11 +58,9 @@ fn main() -> Result<(), Box<dyn error::Error>> {
                 max_r = r;
                 min_d = d;
                 choice = name;
-            } else if r == max_r {
-                if d < min_d {
-                    min_d = d;
-                    choice = name;
-                }
+            } else if r == max_r && d < min_d {
+                min_d = d;
+                choice = name;
             }
         }
 

@@ -1,3 +1,4 @@
+#[allow(unused)]
 use std::{collections::{HashMap, HashSet}, vec};
 
 struct Solution;

@@ -5,7 +5,7 @@ fn main() {
     let mut buf = String::new();
     io::stdin().read_line(&mut buf).unwrap();
 
-    let vec: Vec<&str> = buf.trim().split_whitespace().collect();
+    let vec: Vec<&str> = buf.split_whitespace().collect();
     if vec.len() != 3 {
         eprintln!("Usage: ex-123-9 \\n NUMBER IN_RADIX OUT_RADIX");
         std::process::exit(1);

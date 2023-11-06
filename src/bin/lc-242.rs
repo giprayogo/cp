@@ -46,8 +46,8 @@ fn main() {}
 fn test_solution() {
     let s = "anagram".to_string();
     let t = "nagaram".to_string();
-    assert_eq!(Solution::is_anagram(s, t), true);
+    assert!(Solution::is_anagram(s, t));
     let s = "rat".to_string();
     let t = "car".to_string();
-    assert_eq!(Solution::is_anagram(s, t), false);
+    assert!(!Solution::is_anagram(s, t));
 }

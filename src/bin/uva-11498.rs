@@ -10,7 +10,6 @@ fn main() {
     while k != 0 {
         io::stdin().read_line(&mut buf).unwrap();
         let dp: Vec<i32> = buf
-            .trim()
             .split_whitespace()
             .map(|x| x.parse().unwrap())
             .collect();
@@ -18,7 +17,6 @@ fn main() {
         for _ in 0..k {
             io::stdin().read_line(&mut buf).unwrap();
             let p: Vec<i32> = buf
-                .trim()
                 .split_whitespace()
                 .map(|x| x.parse().unwrap())
                 .collect();

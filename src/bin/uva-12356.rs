@@ -18,7 +18,7 @@ fn main() -> Result<(), Box<dyn error::Error>> {
     loop {
         buf.clear();
         stdin.read_line(&mut buf)?;
-        let (s, b) = match buf.trim().split_whitespace().collect_vec()[..] {
+        let (s, b) = match buf.split_whitespace().collect_vec()[..] {
             ["0", "0"] => break,
             [s, b] => {
                 let s = s.parse()?;
@@ -33,7 +33,7 @@ fn main() -> Result<(), Box<dyn error::Error>> {
         for _ in 0..b {
             buf.clear();
             stdin.read_line(&mut buf)?;
-            let (l, r) = match buf.trim().split_whitespace().collect_tuple() {
+            let (l, r) = match buf.split_whitespace().collect_tuple() {
                 Some((l, r)) => {
                     let l = l.parse::<i32>()? - 1;
                     let r = r.parse::<i32>()? - 1;
@@ -72,8 +72,8 @@ fn main() -> Result<(), Box<dyn error::Error>> {
             };
 
             let mut _r = None;
-            for i in *r as usize..*s {
-                if _s[i] == 1 {
+            for (i, item) in _s.iter().enumerate().take(*s).skip(*r as usize) {
+                if *item == 1 {
                     _r = Some(i);
                     break;
                 }

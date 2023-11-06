@@ -1,3 +1,4 @@
+use std::cmp::Ordering::{Equal, Greater, Less};
 use std::io;
 
 fn main() {
@@ -8,19 +9,14 @@ fn main() {
     let mut outs = Vec::new();
     for _ in 0..t {
         io::stdin().read_line(&mut buf).unwrap();
-        let ab: Vec<i64> = buf
-            .trim()
-            .split_whitespace()
-            .map(|x| x.parse().unwrap())
-            .collect();
+        let ab: Vec<i64> = buf.split_whitespace().map(|x| x.parse().unwrap()).collect();
         let a = ab[0];
         let b = ab[1];
-        if a < b {
-            outs.push("<");
-        } else if a > b {
-            outs.push(">");
-        } else {
-            outs.push("=");
+
+        match a.cmp(&b) {
+            Less => outs.push("<"),
+            Greater => outs.push(">"),
+            Equal => outs.push("="),
         }
         buf.clear();
     }

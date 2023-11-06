@@ -1,4 +1,4 @@
-use std::collections::{BTreeMap, HashMap};
+use std::collections::HashMap;
 
 #[allow(unused)]
 struct Solution;
@@ -8,7 +8,7 @@ impl Solution {
     // raw pointers!
     pub fn group_anagrams(strs: Vec<String>) -> Vec<Vec<String>> {
         let mut m = HashMap::new();
-        let offset = -1 * 'a' as isize;
+        let offset = -('a' as isize);
 
         for s in strs.iter() {
             let mut h = vec![0; 26];

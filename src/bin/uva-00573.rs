@@ -2,7 +2,7 @@ use std::error;
 use std::io;
 
 #[derive(Debug)]
-struct HUDF {
+struct Hudf {
     height: f64,
     up: f64,
     down: f64,
@@ -17,7 +17,7 @@ fn main() -> Result<(), Box<dyn error::Error>> {
     let stdin = io::stdin();
     loop {
         stdin.read_line(&mut buf)?;
-        let line: Vec<_> = buf.trim().split_whitespace().collect();
+        let line: Vec<_> = buf.split_whitespace().collect();
         match line[..] {
             [height, up, down, fatigue_pct] => {
                 let height = height.parse()?;
@@ -28,7 +28,7 @@ fn main() -> Result<(), Box<dyn error::Error>> {
                 if height == 0. {
                     break;
                 }
-                hudf_container.push(HUDF {
+                hudf_container.push(Hudf {
                     height,
                     up,
                     down,

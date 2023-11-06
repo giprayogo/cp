@@ -21,9 +21,9 @@ fn main() {}
 #[test]
 fn test_solution() {
     let nums = vec![1, 2, 3, 1];
-    assert_eq!(Solution::contains_duplicate(nums), true);
+    assert!(Solution::contains_duplicate(nums));
     let nums = vec![1, 2, 3, 4];
-    assert_eq!(Solution::contains_duplicate(nums), false);
+    assert!(!Solution::contains_duplicate(nums));
     let nums = vec![1, 1, 1, 3, 3, 4, 3, 2, 4, 2];
-    assert_eq!(Solution::contains_duplicate(nums), true);
+    assert!(Solution::contains_duplicate(nums));
 }

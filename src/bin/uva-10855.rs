@@ -77,7 +77,7 @@ impl Square {
             self.0
                 .iter()
                 .rev()
-                .map(|row| row.iter().rev().map(|c| *c).collect_vec())
+                .map(|row| row.iter().rev().copied().collect_vec())
                 .collect_vec(),
         )
     }
@@ -108,7 +108,7 @@ fn main() -> Result<(), Box<dyn error::Error>> {
     loop {
         buf.clear();
         stdin.read_line(&mut buf)?;
-        let (n1, n2) = match buf.trim().split_whitespace().collect_tuple() {
+        let (n1, n2) = match buf.split_whitespace().collect_tuple() {
             Some(("0", "0")) => break,
             Some((n1, n2)) => {
                 let n1 = n1.parse()?;

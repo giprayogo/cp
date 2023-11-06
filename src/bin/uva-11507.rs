@@ -89,9 +89,8 @@ fn main() -> Result<(), Box<dyn error::Error>> {
     let mut output_buffer = Vec::new();
     loop {
         let length: u32 = stdin!(buf, stdin);
-        match length {
-            0 => break,
-            _ => {}
+        if length == 0 {
+            break;
         }
 
         let mut wire = Wire::X;

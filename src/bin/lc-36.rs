@@ -127,10 +127,7 @@ fn test_solution() {
         ['.', '.', '.', '4', '1', '9', '.', '.', '5'],
         ['.', '.', '.', '.', '8', '.', '.', '7', '9'],
     ];
-    assert_eq!(
-        Solution::is_valid_sudoku(board.map(|x| x.into()).into()),
-        true
-    );
+    assert!(Solution::is_valid_sudoku(board.map(|x| x.into()).into()),);
     let board = [
         ['8', '3', '.', '.', '7', '.', '.', '.', '.'],
         ['6', '.', '.', '1', '9', '5', '.', '.', '.'],
@@ -142,8 +139,5 @@ fn test_solution() {
         ['.', '.', '.', '4', '1', '9', '.', '.', '5'],
         ['.', '.', '.', '.', '8', '.', '.', '7', '9'],
     ];
-    assert_eq!(
-        Solution::is_valid_sudoku(board.map(|x| x.into()).into()),
-        false
-    );
+    assert!(!Solution::is_valid_sudoku(board.map(|x| x.into()).into()),);
 }

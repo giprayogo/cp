@@ -1,5 +1,5 @@
+use chrono::{Datelike, NaiveDate};
 use std::io;
-use chrono::{NaiveDate, Datelike};
 
 fn main() {
     let mut buf = String::new();
@@ -20,32 +20,19 @@ fn main() {
 
     println!("By month");
     dates.sort_by_key(|k| k.unwrap().month());
-    for date in dates.iter() {
-        match date {
-            Some(v) => println!("{}", v),
-            _ => (),
-        }
-        
+    for date in dates.iter().flatten() {
+        println!("{}", date);
     }
 
     println!("By date");
     dates.sort_by_key(|k| k.unwrap().day());
-    for date in dates.iter() {
-        match date {
-            Some(v) => println!("{}", v),
-            _ => (),
-        }
-        
+    for date in dates.iter().flatten() {
+        println!("{}", date);
     }
 
     println!("By age");
     dates.sort();
-    for date in dates.iter() {
-        match date {
-            Some(v) => println!("{}", v),
-            _ => (),
-        }
-        
+    for date in dates.iter().flatten() {
+        println!("{}", date);
     }
-
 }

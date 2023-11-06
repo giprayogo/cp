@@ -9,7 +9,6 @@ fn main() {
     for i in 0..t {
         io::stdin().read_line(&mut buf).unwrap();
         let mut case: Vec<i32> = buf
-            .trim()
             .split_whitespace()
             .map(|x| x.parse().unwrap())
             .collect();

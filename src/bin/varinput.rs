@@ -5,7 +5,6 @@ fn main() {
     io::stdin().read_line(&mut buf).unwrap();
     while !buf.trim().is_empty() {
         let ints: Vec<i64> = buf
-            .trim()
             .split_whitespace()
             .map(|x| x.parse().expect("Can't parse int"))
             .collect();

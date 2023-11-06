@@ -14,7 +14,7 @@ fn main() -> Result<(), Box<dyn error::Error>> {
     for _ in 0..n {
         buf.clear();
         stdin.read_line(&mut buf)?;
-        let (n, k) = match buf.trim().split_whitespace().collect_vec()[..] {
+        let (_n, k) = match buf.split_whitespace().collect_vec()[..] {
             [n, k] => {
                 let n: i32 = n.parse()?;
                 let k: i32 = k.parse()?;

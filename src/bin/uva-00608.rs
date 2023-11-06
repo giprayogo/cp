@@ -30,7 +30,7 @@ fn main() -> Result<(), Box<dyn error::Error>> {
         for _ in 0..3 {
             buf.clear();
             stdin.read_line(&mut buf)?;
-            match buf.trim().split_whitespace().collect_vec()[..] {
+            match buf.split_whitespace().collect_vec()[..] {
                 [group_a, group_b, status] => match status {
                     "even" => {
                         for c in group_a.chars().chain(group_b.chars()) {

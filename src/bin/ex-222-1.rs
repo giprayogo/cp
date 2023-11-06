@@ -57,10 +57,7 @@ fn bitwise_modulo(s: i32, n: i32) -> i32 {
 
 /// Determine if S is power of 2 only by bitwise operation
 fn is_power_of_two(s: i32) -> bool {
-    match !(s & -s) & s {
-        0 => true,
-        _ => false,
-    }
+    matches!(!(s & -s) & s, 0)
 }
 
 /// Turn off last bit in s

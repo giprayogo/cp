@@ -97,7 +97,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             buf.clear();
             stdin.read_line(&mut buf)?;
             // println!("{}", buf.trim());
-            match buf.trim().split_whitespace().collect::<Vec<_>>()[..] {
+            match buf.split_whitespace().collect::<Vec<_>>()[..] {
                 [c, p, t, l] => {
                     let c: u8 = c.parse()?;
                     let p = p.parse()?;
@@ -132,7 +132,6 @@ fn main() -> Result<(), Box<dyn Error>> {
         for v in vec.iter() {
             println!("{} {} {}", v.0, v.1, v.2);
         }
-        println!("");
     }
     Ok(())
 }

@@ -11,8 +11,8 @@ fn main() {
     let before = buf.trim();
 
     let mut words: Vec<&str> = Vec::new();
-    for word in buf.trim().split_whitespace() {
-        if word.len() == 3 && re.is_match(&word) {
+    for word in buf.split_whitespace() {
+        if word.len() == 3 && re.is_match(word) {
             words.push("***");
         } else {
             words.push(word);

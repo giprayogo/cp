@@ -6,7 +6,7 @@ use std::io::{self, BufRead};
  * The function accepts INTEGER_ARRAY arr as parameter.
  */
 
-fn plusMinus(arr: &[i32]) -> (f64, f64, f64) {
+fn plus_minus(arr: &[i32]) -> (f64, f64, f64) {
     let mut pos: f64 = 0.;
     let mut neg: f64 = 0.;
     let mut zero: f64 = 0.;
@@ -20,21 +20,30 @@ fn plusMinus(arr: &[i32]) -> (f64, f64, f64) {
         }
     }
     let l = arr.len() as f64;
-    (pos/l, neg/l, zero/l)
+    (pos / l, neg / l, zero / l)
 }
 
 fn main() {
     let stdin = io::stdin();
     let mut stdin_iterator = stdin.lock().lines();
 
-    let n = stdin_iterator.next().unwrap().unwrap().trim().parse::<i32>().unwrap();
+    let _n = stdin_iterator
+        .next()
+        .unwrap()
+        .unwrap()
+        .trim()
+        .parse::<i32>()
+        .unwrap();
 
-    let arr: Vec<i32> = stdin_iterator.next().unwrap().unwrap()
+    let arr: Vec<i32> = stdin_iterator
+        .next()
+        .unwrap()
+        .unwrap()
         .trim_end()
         .split(' ')
         .map(|s| s.to_string().parse::<i32>().unwrap())
         .collect();
 
-    let (a, b, c) = plusMinus(&arr);
+    let (a, b, c) = plus_minus(&arr);
     println!("{a:.6}\n{b:.6}\n{c:.6}")
 }

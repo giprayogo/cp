@@ -15,12 +15,12 @@ enum What {
     Weird,
 }
 
-fn dayOfProgrammer(year: i32) -> String {
+fn day_of_programmer(year: i32) -> String {
     let what = {
         if year <= 1917 {
             What::Julian
         } else if year == 1918 {
-            What::Weird 
+            What::Weird
         } else {
             What::Gregorian
         }
@@ -33,12 +33,10 @@ fn dayOfProgrammer(year: i32) -> String {
             } else {
                 28
             }
-        },
-        What::Weird => {
-            14
-        },
+        }
+        What::Weird => 14,
         What::Gregorian => {
-            if year % 4 == 0  || year % 400 == 0 {
+            if year % 4 == 0 || year % 400 == 0 {
                 29
             } else {
                 28
@@ -57,7 +55,7 @@ fn dayOfProgrammer(year: i32) -> String {
             day = 256 - acc;
             break;
         }
-        acc += t; 
+        acc += t;
     }
 
     format!("{day}.{month:02}.{year}")
@@ -65,7 +63,7 @@ fn dayOfProgrammer(year: i32) -> String {
 
 #[test]
 fn test() {
-    assert_eq!(dayOfProgrammer(2017), "13.09.2017".to_string());
+    assert_eq!(day_of_programmer(2017), "13.09.2017".to_string());
 }
 
 fn main() {
@@ -74,9 +72,15 @@ fn main() {
 
     let mut fptr = File::create(env::var("OUTPUT_PATH").unwrap()).unwrap();
 
-    let year = stdin_iterator.next().unwrap().unwrap().trim().parse::<i32>().unwrap();
+    let year = stdin_iterator
+        .next()
+        .unwrap()
+        .unwrap()
+        .trim()
+        .parse::<i32>()
+        .unwrap();
 
-    let result = dayOfProgrammer(year);
+    let result = day_of_programmer(year);
 
     writeln!(&mut fptr, "{}", result).ok();
 }

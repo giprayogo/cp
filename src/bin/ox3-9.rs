@@ -11,15 +11,15 @@ use std::io::{self, BufRead, Write};
  *  2. STRING path
  */
 
-fn countingValleys(steps: i32, path: &str) -> i32 {
+fn counting_valleys(_steps: i32, path: &str) -> i32 {
     let mut level = 0;
     let mut valleys = 0;
-    
+
     for p in path.chars() {
         match p {
-            'U' => { level += 1 },
-            'D' => { level -= 1 },
-            _ => unreachable!()
+            'U' => level += 1,
+            'D' => level -= 1,
+            _ => unreachable!(),
         }
         if level == 0 && p == 'U' {
             valleys += 1;
@@ -34,11 +34,17 @@ fn main() {
 
     let mut fptr = File::create(env::var("OUTPUT_PATH").unwrap()).unwrap();
 
-    let steps = stdin_iterator.next().unwrap().unwrap().trim().parse::<i32>().unwrap();
+    let steps = stdin_iterator
+        .next()
+        .unwrap()
+        .unwrap()
+        .trim()
+        .parse::<i32>()
+        .unwrap();
 
     let path = stdin_iterator.next().unwrap().unwrap();
 
-    let result = countingValleys(steps, &path);
+    let result = counting_valleys(steps, &path);
 
     writeln!(&mut fptr, "{}", result).ok();
 }

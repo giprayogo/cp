@@ -12,7 +12,7 @@ use std::io::{self, BufRead, Write};
  *  3. INTEGER_ARRAY queries
  */
 
-fn circularArrayRotation(a: &[i32], k: i32, queries: &[i32]) -> Vec<i32> {
+fn circular_array_rotation(a: &[i32], k: i32, queries: &[i32]) -> Vec<i32> {
     let mut o = vec![];
     let len = a.len() as i32;
     for q in queries {
@@ -28,18 +28,24 @@ fn main() {
 
     let mut fptr = File::create(env::var("OUTPUT_PATH").unwrap()).unwrap();
 
-    let first_multiple_input: Vec<String> = stdin_iterator.next().unwrap().unwrap()
+    let first_multiple_input: Vec<String> = stdin_iterator
+        .next()
+        .unwrap()
+        .unwrap()
         .split(' ')
         .map(|s| s.to_string())
         .collect();
 
-    let n = first_multiple_input[0].trim().parse::<i32>().unwrap();
+    let _n = first_multiple_input[0].trim().parse::<i32>().unwrap();
 
     let k = first_multiple_input[1].trim().parse::<i32>().unwrap();
 
     let q = first_multiple_input[2].trim().parse::<i32>().unwrap();
 
-    let a: Vec<i32> = stdin_iterator.next().unwrap().unwrap()
+    let a: Vec<i32> = stdin_iterator
+        .next()
+        .unwrap()
+        .unwrap()
         .trim_end()
         .split(' ')
         .map(|s| s.to_string().parse::<i32>().unwrap())
@@ -48,11 +54,17 @@ fn main() {
     let mut queries: Vec<i32> = Vec::with_capacity(q as usize);
 
     for _ in 0..q {
-        let queries_item = stdin_iterator.next().unwrap().unwrap().trim().parse::<i32>().unwrap();
+        let queries_item = stdin_iterator
+            .next()
+            .unwrap()
+            .unwrap()
+            .trim()
+            .parse::<i32>()
+            .unwrap();
         queries.push(queries_item);
     }
 
-    let result = circularArrayRotation(&a, k, &queries);
+    let result = circular_array_rotation(&a, k, &queries);
 
     for i in 0..result.len() {
         write!(&mut fptr, "{}", result[i]).ok();

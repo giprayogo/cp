@@ -12,9 +12,10 @@ use std::io::{self, BufRead, Write};
  *  2. INTEGER_ARRAY b
  */
 
-fn compareTriplets(a: &[i32], b: &[i32]) -> Vec<i32> {
+fn compare_triplets(a: &[i32], b: &[i32]) -> Vec<i32> {
     let mut points = vec![0; 2];
-    points = a.iter()
+    points = a
+        .iter()
         .zip(b.iter())
         .fold(points, |points, (_a, _b)| match _a.cmp(_b) {
             Equal => points,
@@ -48,7 +49,7 @@ fn main() {
         .map(|s| s.to_string().parse::<i32>().unwrap())
         .collect();
 
-    let result = compareTriplets(&a, &b);
+    let result = compare_triplets(&a, &b);
 
     for i in 0..result.len() {
         write!(&mut fptr, "{}", result[i]).ok();

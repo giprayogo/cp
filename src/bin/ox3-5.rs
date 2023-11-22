@@ -1,3 +1,4 @@
+use std::cmp::Ordering;
 use std::env;
 use std::fs::File;
 use std::io::{self, BufRead, Write};
@@ -9,15 +10,19 @@ use std::io::{self, BufRead, Write};
  * The function accepts INTEGER_ARRAY candles as parameter.
  */
 
-fn birthdayCakeCandles(candles: &[i32]) -> i32 {
+fn birthday_cake_candles(candles: &[i32]) -> i32 {
     let mut max_count = 0;
     let mut max = i32::MIN;
     for i in candles.iter() {
-        if *i > max {
-            max_count = 1;
-            max = *i;
-        } else if *i == max {
-            max_count += 1;
+        match i.cmp(&max) {
+            Ordering::Greater => {
+                max_count = 1;
+                max = *i;
+            }
+            Ordering::Equal => {
+                max_count += 1;
+            }
+            _ => {}
         }
     }
     max_count
@@ -29,15 +34,24 @@ fn main() {
 
     let mut fptr = File::create(env::var("OUTPUT_PATH").unwrap()).unwrap();
 
-    let _candles_count = stdin_iterator.next().unwrap().unwrap().trim().parse::<i32>().unwrap();
+    let _candles_count = stdin_iterator
+        .next()
+        .unwrap()
+        .unwrap()
+        .trim()
+        .parse::<i32>()
+        .unwrap();
 
-    let candles: Vec<i32> = stdin_iterator.next().unwrap().unwrap()
+    let candles: Vec<i32> = stdin_iterator
+        .next()
+        .unwrap()
+        .unwrap()
         .trim_end()
         .split(' ')
         .map(|s| s.to_string().parse::<i32>().unwrap())
         .collect();
 
-    let result = birthdayCakeCandles(&candles);
+    let result = birthday_cake_candles(&candles);
 
     writeln!(&mut fptr, "{}", result).ok();
 }

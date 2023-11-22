@@ -12,7 +12,7 @@ use std::io::{self, BufRead, Write};
  *  2. INTEGER_ARRAY player
  */
 
-fn climbingLeaderboard(ranked: &[i32], player: &[i32]) -> Vec<i32> {
+fn climbing_leaderboard(ranked: &[i32], player: &[i32]) -> Vec<i32> {
     let mut baa = BTreeSet::new();
     for r in ranked {
         baa.insert(*r);
@@ -36,7 +36,7 @@ fn climbingLeaderboard(ranked: &[i32], player: &[i32]) -> Vec<i32> {
 
 #[test]
 fn test() {
-    climbingLeaderboard(&[100, 100, 50, 40, 40, 20, 10], &[5, 25, 50, 120]);
+    climbing_leaderboard(&[100, 100, 50, 40, 40, 20, 10], &[5, 25, 50, 120]);
 }
 
 fn main() {
@@ -45,23 +45,41 @@ fn main() {
 
     let mut fptr = File::create(env::var("OUTPUT_PATH").unwrap()).unwrap();
 
-    let _ranked_count = stdin_iterator.next().unwrap().unwrap().trim().parse::<i32>().unwrap();
+    let _ranked_count = stdin_iterator
+        .next()
+        .unwrap()
+        .unwrap()
+        .trim()
+        .parse::<i32>()
+        .unwrap();
 
-    let ranked: Vec<i32> = stdin_iterator.next().unwrap().unwrap()
+    let ranked: Vec<i32> = stdin_iterator
+        .next()
+        .unwrap()
+        .unwrap()
         .trim_end()
         .split(' ')
         .map(|s| s.to_string().parse::<i32>().unwrap())
         .collect();
 
-    let _player_count = stdin_iterator.next().unwrap().unwrap().trim().parse::<i32>().unwrap();
+    let _player_count = stdin_iterator
+        .next()
+        .unwrap()
+        .unwrap()
+        .trim()
+        .parse::<i32>()
+        .unwrap();
 
-    let player: Vec<i32> = stdin_iterator.next().unwrap().unwrap()
+    let player: Vec<i32> = stdin_iterator
+        .next()
+        .unwrap()
+        .unwrap()
         .trim_end()
         .split(' ')
         .map(|s| s.to_string().parse::<i32>().unwrap())
         .collect();
 
-    let result = climbingLeaderboard(&ranked, &player);
+    let result = climbing_leaderboard(&ranked, &player);
 
     for i in 0..result.len() {
         write!(&mut fptr, "{}", result[i]).ok();

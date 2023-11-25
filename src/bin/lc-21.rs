@@ -24,17 +24,18 @@ impl TryFrom<Vec<i32>> for ListNode {
     type Error = &'static str;
 
     fn try_from(value: Vec<i32>) -> Result<Self, Self::Error> {
-        let mut vi = value.iter().rev();
-        let mut prev_node = match vi.next() {
+        let mut vi = value.iter();
+        let mut head = match vi.next() {
             Some(v) => ListNode::new(*v),
-            _ => return Err("Empty list"),
+            None => return Err("List empty"),
         };
+        let mut current = &mut head;
         for v in vi {
-            let mut node = ListNode::new(*v);
-            node.next = Some(Box::new(prev_node));
-            prev_node = node
+            let node = ListNode::new(*v);
+            current.next = Some(Box::new(node));
+            current = current.next.as_mut().unwrap();
         }
-        Ok(prev_node)
+        Ok(head)
     }
 }
 
@@ -55,32 +56,25 @@ impl Solution {
         mut list1: Option<Box<ListNode>>,
         mut list2: Option<Box<ListNode>>,
     ) -> Option<Box<ListNode>> {
-        let mut current: Option<Box<ListNode>> = None;
-        loop {
-            match (&list1, &list2) {
-                (Some(node1), Some(node2)) => {
-                    if (node1.val < node2.val) {
-                        current = Some(node1.clone());
-                        list1 = list1?.next
-                    } else {
-                        current = Some(node2.clone());
-                        list2 = list2?.next
-                    }
-                }
-                (Some(node1), None) => {
-                    current = Some(node1.clone());
-                    list1 = list1?.next
-                }
-                (None, Some(node2)) => {
-                    current = Some(node2.clone());
-                    list2 = list2?.next
-                }
-                (None, None) => {
-                    return current;
-                }
+        let mut head = ListNode::new(0);
+        let mut cursor = &mut head;
+        while let (Some(node1), Some(node2)) = (&mut list1, &mut list2) {
+            if node1.val < node2.val {
+                cursor.next = list1.take();
+                list1 = cursor.next.as_mut().unwrap().next.take();
+            } else {
+                cursor.next = list2.take();
+                list2 = cursor.next.as_mut().unwrap().next.take();
             }
+            cursor = cursor.next.as_mut().unwrap(); 
         }
-        list1
+        if let Some(node) = list1 {
+            cursor.next = Some(node);
+        } else if let Some(node) = list2 {
+            cursor.next = Some(node);
+        }
+
+        head.next
     }
 }
 
@@ -94,5 +88,5 @@ fn test_solution() {
     let list2_node = ListNode::try_from(list2.clone()).unwrap();
     let merged_list =
         Solution::merge_two_lists(Some(Box::new(list1_node)), Some(Box::new(list2_node))).unwrap();
-    assert_eq!(Into::<Vec<i32>>::into(*merged_list), vec![1,1,2,3,4,5]);
+    assert_eq!(Into::<Vec<i32>>::into(*merged_list), vec![1, 1, 2, 3, 4, 4]);
 }

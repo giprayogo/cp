@@ -29,14 +29,6 @@ class TreeNode:
 
     @classmethod
     def from_list(cls, node_list: list[int | None]) -> Optional[Self]:
-        # No don't use this kind of structure, instead count actively?
-        # for e in source_list:
-        #    node = cls(e)
-        # Because I don't want to build every example!
-        # pointer order
-        # root
-        # left
-        # right
         nodes = [cls(x) if x is not None else None for x in node_list]
         length = len(nodes)
         for i, e in enumerate(nodes):

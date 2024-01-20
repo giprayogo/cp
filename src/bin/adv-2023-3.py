@@ -84,7 +84,7 @@ for num, row, (column_from, column_to) in numbers:
             break
 
 ratsums = 0
-for (_, _, adjs) in like_gears:
+for _, _, adjs in like_gears:
     if len(adjs) == 2:
         ratsums += adjs[0] * adjs[1]
 

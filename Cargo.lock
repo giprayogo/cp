@@ -76,6 +76,18 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e496a50fda8aacccc86d7529e2c1e0892dbd0f898a6b5645b5561b89c3210efa"
 
 [[package]]
+name = "cp"
+version = "0.1.0"
+dependencies = [
+ "chrono",
+ "eval",
+ "itertools",
+ "radix_fmt",
+ "rand",
+ "regex",
+]
+
+[[package]]
 name = "cxx"
 version = "1.0.94"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -145,18 +157,6 @@ dependencies = [
  "cfg-if",
  "libc",
  "wasi 0.11.0+wasi-snapshot-preview1",
-]
-
-[[package]]
-name = "halim"
-version = "0.1.0"
-dependencies = [
- "chrono",
- "eval",
- "itertools",
- "radix_fmt",
- "rand",
- "regex",
 ]
 
 [[package]]

@@ -6,11 +6,10 @@ class Solution:
         # Neetcode optimization: I can pass away the sum
         # def dfs(index):
         def dfs(index, total):
-            config_sum = sum(config)
-            if config_sum == target:
+            if total == target:
                 results.append(config.copy())
                 return
-            elif config_sum > target:
+            elif total > target:
                 return
             elif index >= len(candidates):
                 return

@@ -88,23 +88,23 @@ fn main() -> Result<(), Box<dyn error::Error>> {
 
     let mut output_buffer = Vec::new();
     loop {
-        let length: u32 = stdin!(buf, stdin);
+        // let length: u32 = stdin!(buf, stdin);
         if length == 0 {
             break;
         }
 
         let mut wire = Wire::X;
-        for instruction in stdins!(buf, stdin) {
-            let bend = match instruction {
-                "+z" => Bend::PlusZ,
-                "-z" => Bend::MinZ,
-                "+y" => Bend::PlusY,
-                "-y" => Bend::MinY,
-                "No" => Bend::No,
-                _ => panic!("Invalid bend instruction: {}", instruction),
-            };
-            wire.bend(bend);
-        }
+        // for instruction in stdins!(buf, stdin) {
+        //     let bend = match instruction {
+        //         "+z" => Bend::PlusZ,
+        //         "-z" => Bend::MinZ,
+        //         "+y" => Bend::PlusY,
+        //         "-y" => Bend::MinY,
+        //         "No" => Bend::No,
+        //         _ => panic!("Invalid bend instruction: {}", instruction),
+        //     };
+        //     wire.bend(bend);
+        // }
         output_buffer.push(format!("{}", wire));
     }
     for text in output_buffer {

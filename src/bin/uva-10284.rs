@@ -37,13 +37,7 @@ impl Display for AttackBoard {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut row_strings = vec![];
         for row in self.board {
-            row_strings.push(row.iter().map(|x| {
-                if *x {
-                    "■"
-                } else {
-                    "□"
-                }
-            }).join(" "));
+            row_strings.push(row.iter().map(|x| if *x { "■" } else { "□" }).join(" "));
         }
         write!(f, "{}", row_strings.join("\n"))
     }
@@ -59,7 +53,7 @@ impl AttackBoard {
 
 // TODO: Macroable trait implementation
 struct ChessBoard {
-    board: [[Option<char>; 8]; 8]
+    board: [[Option<char>; 8]; 8],
 }
 
 // TODO: should check position OOB
@@ -81,9 +75,7 @@ impl Display for ChessBoard {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut row_strings = vec![];
         for row in self.board {
-            row_strings.push(row.iter().map(|x| {
-                (*x).unwrap_or('.')
-            }).join(" "));
+            row_strings.push(row.iter().map(|x| (*x).unwrap_or('.')).join(" "));
         }
         write!(f, "{}", row_strings.join("\n"))
     }
@@ -199,7 +191,7 @@ fn bishop_space(attack: &mut AttackBoard, occ: &mut ChessBoard, position: Positi
     }
 }
 
-fn p_space(attack: &mut AttackBoard, occ: &mut ChessBoard, position: Position, up:bool) {
+fn p_space(attack: &mut AttackBoard, occ: &mut ChessBoard, position: Position, up: bool) {
     let attack_vectors = match up {
         true => [(-1, 0), (-1, 1), (-1, -1)],
         false => [(1, 0), (1, 1), (1, -1)],
@@ -230,7 +222,7 @@ fn main() -> Result<(), Box<dyn error::Error>> {
     let stdin = io::stdin();
 
     'fens: loop {
-        let fen: String = stdin!(buf, stdin);
+        // let fen: String = stdin!(buf, stdin);
         if fen.is_empty() {
             break 'fens;
         }
@@ -249,12 +241,12 @@ fn main() -> Result<(), Box<dyn error::Error>> {
                     position.column = 0;
                     // println!("ENTER");
                     continue;
-                },
+                }
                 c if c.is_numeric() => {
                     position.column += c.to_digit(10).unwrap() as usize;
                     continue;
-                },
-                v  => occ[position] = Some(v),
+                }
+                v => occ[position] = Some(v),
             }
 
             // println!("{}, {}", position.row, position.column);
@@ -311,7 +303,6 @@ fn main() -> Result<(), Box<dyn error::Error>> {
             }
         }
         println!("{}", count);
-
     }
 
     Ok(())

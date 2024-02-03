@@ -16,7 +16,7 @@ fn main() -> Result<(), Box<dyn error::Error>> {
     let mut output_buf = Vec::new();
 
     loop {
-        let row: Vec<_> = stdins!(buf, stdin).map(|x| x.parse().unwrap()).collect();
+        // let row: Vec<_> = stdins!(buf, stdin).map(|x| x.parse().unwrap()).collect();
         let [a, b, c, x, y] = match row[..] {
             [0, 0, 0, 0, 0] => break,
             [a, b, c, x, y] => [a, b, c, x, y],
@@ -81,7 +81,7 @@ fn main() -> Result<(), Box<dyn error::Error>> {
                                 break;
                             }
                         }
-                    },
+                    }
                     _ => panic!("Must have forgot to quit somewhere"),
                 }
             }

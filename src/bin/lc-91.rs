@@ -1,47 +1,77 @@
 // use std::collections::{HashMap, HashSet};
-use std::collections::HashMap;
+// use std::collections::HashMap;
 
 struct Solution;
 
 impl Solution {
-    // What if I don't use valid set but hard-coded rules? Also probably I don't need Vec<char> hash map...
-    // Technically BFS not DP --try DP solution later
+    // DP
     pub fn num_decodings(s: String) -> i32 {
         let chars: Vec<char> = s.chars().collect();
-        let mut cache = HashMap::new();
-        cache.insert(chars.len(), 1);
+        let mut n = vec![0; chars.len() + 2];
+        let n_len = n.len();
+        n[n_len - 2] = 1;
 
-        Solution::n(&mut cache, &chars, 0)
-    }
-
-    // NOTE: using index might be a bit clunky, but it avoids clone when using slice as map keyk
-    fn n(cache: &mut HashMap<usize, i32>, chars: &[char], i: usize) -> i32 {
-        match cache.get(&i) {
-            Some(v) => *v,
-            None => {
-                if chars[i] == '0' {
-                    cache.insert(i, 0);
-                    return 0;
-                }
-
-                let mut v = Solution::n(cache, chars, i + 1);
-                v += if i + 1 < chars.len() {
-                    match chars[i] {
-                        '1' => Solution::n(cache, chars, i + 2),
-                        '2' => match chars[i + 1] {
-                            '7' | '8' | '9' => 0,
-                            _ => Solution::n(cache, chars, i + 2),
-                        },
-                        _ => 0,
-                    }
-                } else {
-                    0
-                };
-                cache.insert(i, v);
-                v
+        for i in (0..chars.len()).rev() {
+            if chars[i] == '0' {
+                continue;
             }
+
+            let mut v = n[i + 1];
+            v += if i + 1 < chars.len() {
+                match chars[i] {
+                    '1' => n[i + 2],
+                    '2' => match chars[i + 1] {
+                        '7' | '8' | '9' => 0,
+                        _ => n[i + 2],
+                    },
+                    _ => 0,
+                }
+            } else {
+                0
+            };
+            n[i] = v;
         }
+        n[0]
     }
+    // What if I don't use valid set but hard-coded rules? Also probably I don't need Vec<char> hash map...
+    // BFS version
+    // Technically BFS not DP --try DP solution later
+    // pub fn num_decodings(s: String) -> i32 {
+    //     let chars: Vec<char> = s.chars().collect();
+    //     let mut cache = HashMap::new();
+    //     cache.insert(chars.len(), 1);
+
+    //     Solution::n(&mut cache, &chars, 0)
+    // }
+
+    // // NOTE: using index might be a bit clunky, but it avoids clone when using slice as map keyk
+    // fn n(cache: &mut HashMap<usize, i32>, chars: &[char], i: usize) -> i32 {
+    //     match cache.get(&i) {
+    //         Some(v) => *v,
+    //         None => {
+    //             if chars[i] == '0' {
+    //                 cache.insert(i, 0);
+    //                 return 0;
+    //             }
+
+    //             let mut v = Solution::n(cache, chars, i + 1);
+    //             v += if i + 1 < chars.len() {
+    //                 match chars[i] {
+    //                     '1' => Solution::n(cache, chars, i + 2),
+    //                     '2' => match chars[i + 1] {
+    //                         '7' | '8' | '9' => 0,
+    //                         _ => Solution::n(cache, chars, i + 2),
+    //                     },
+    //                     _ => 0,
+    //                 }
+    //             } else {
+    //                 0
+    //             };
+    //             cache.insert(i, v);
+    //             v
+    //         }
+    //     }
+    // }
 
     // ========================================================
     // Not TLE but kind of slow??

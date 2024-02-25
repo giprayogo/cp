@@ -5,6 +5,7 @@ impl Solution {
     // Try other's different way of marking
     // Lesson: try to find rules to -not- check things.
     // Looping several times is preferrable to executing unnecessary DFS!
+    // Also if it is ok to mutate the array, do it rather than creating other structures
     pub fn solve(board: &mut Vec<Vec<char>>) {
         let ni = board.len();
         let nj = board.first().unwrap().len();

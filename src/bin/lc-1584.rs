@@ -2,63 +2,46 @@
 
 struct Solution;
 
-// later use Disjoint-Set structure (a bit awkward in rust... or is it?)
-// struct DJSNode<'a> {
-//     parent: Option<&'a DJSNode<'a>>,
+// In Rust a little awkward because I can't do self reference
+// I gave up implementing in Rust for this structure
+// struct DisjointSet {
+//     value: usize,
+//     size: usize,
+//     parent: Option<Box<DisjointSet>>,
 // }
 
-// impl<'a> DJSNode<'a> {
-//     fn new() -> Self {
-//         let mut node = DJSNode { parent: None };
-//         node.find();
-//         node
-//     }
-
-//     fn find(&mut self) -> &'a DJSNode {
-//         let parent = match self.parent {
-//             Some(p) => p.find(),
-//             None => self,
+// impl DisjointSet {
+//     fn new(value: usize) -> Self {
+//         let mut d = DisjointSet {
+//             value,
+//             parent: None,
+//             size: 1,
 //         };
-//         self.parent = Some(parent);
-//         parent
+//         d.parent = Some(Box::new(d));
+//         d
 //     }
 
-//     fn union(&mut self) {}
+//     fn find(&mut self) -> Box<DisjointSet> {
+//         let mut x = *self;
+//         // while let Some(mut node) = x.parent {
+//         //     let p = &mut node.parent;
+//         //     // node.parent = match node.parent {
+//         //     //     Some(_node) => _node.parent,
+//         //     //     None => None,
+//         //     // };
+//         //     x = &mut node;
+//         // }
+//         Box::new(&self)
+//     }
 
-//     fn size(&self) {}
+//     fn union(&mut self, other: &mut Self) {
+//         let x = self.find();
+//         let y = other.find();
+//     }
 // }
 
 impl Solution {
-    pub fn min_cost_connect_points(points: Vec<Vec<i32>>) -> i32 {
-        let mut edges = Vec::new();
-        for i in 0..points.len() {
-            for j in 0..i {
-                let cost =
-                    points[i][0].abs_diff(points[j][0]) + points[i][1].abs_diff(points[j][1]);
-                edges.push((i, j, cost))
-            }
-        }
-        edges.sort_by_key(|k| k.2);
-        let mut cost = 0;
-        let mut p: Vec<_> = (0..points.len()).collect();
-        for (i, j, _cost) in edges {
-            let pi = p[i];
-            let pj = p[j];
-            if p[i] != p[j] {
-                cost += _cost;
-                let pij = p[i].min(p[j]);
-                // Probably expensive; without disjoint set. not -that- bad tho
-                for _p in p.iter_mut() {
-                    if *_p == pi || *_p == pj {
-                        *_p = pij;
-                    }
-                }
-            }
-        }
-        cost as i32
-    }
-
-    pub fn min_cost_connect_points_2(points: Vec<Vec<i32>>) -> i32 {
+    pub fn min_cost_connect_points_1(points: Vec<Vec<i32>>) -> i32 {
         let mut edges = Vec::new();
         for i in 0..points.len() {
             for j in 0..i {
@@ -89,10 +72,7 @@ impl Solution {
 }
 
 fn main() {
-    for f in [
-        Solution::min_cost_connect_points,
-        Solution::min_cost_connect_points_2,
-    ] {
+    for f in [Solution::min_cost_connect_points_1] {
         assert_eq!(
             f(vec![
                 vec![0, 0],

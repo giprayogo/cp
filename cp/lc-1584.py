@@ -1,3 +1,6 @@
+import heapq
+
+
 class DisjointSet:
     def __init__(self, value):
         self.value = value
@@ -79,9 +82,37 @@ class Solution:
                 pi.union(pj)
         return cost
 
+    def minCostConnectPoints3(self, points: list[list[int]]) -> int:
+        adj_list = {}
+        for i in range(len(points)):
+            for j in range(0, i):
+                cost = abs(points[i][0] - points[j][0]) + abs(
+                    points[i][1] - points[j][1]
+                )
+                adj_list.setdefault(i, [])
+                adj_list.setdefault(j, [])
+                adj_list[i].append((cost, j))
+                adj_list[j].append((cost, i))
+
+        h = []
+        for e in adj_list.get(0, []):
+            heapq.heappush(h, e)
+        f = {0}
+        cost = 0
+        while h:
+            _cost, _v = heapq.heappop(h)
+            if _v in f:
+                continue
+            f.add(_v)
+            cost += _cost
+            for e in adj_list[_v]:
+                heapq.heappush(h, e)
+        return cost
+
 
 s = Solution()
-for f in (s.minCostConnectPoints, s.minCostConnectPoints2):
+for f in (s.minCostConnectPoints, s.minCostConnectPoints2, s.minCostConnectPoints3):
     assert f([[0, 0], [2, 2], [3, 10], [5, 2], [7, 0]]) == 20
     assert f([[3, 12], [-2, 5], [-4, 1]]) == 18
     assert f([[2, -3], [-17, -8], [13, 8], [-17, -15]]) == 53
+    assert f([[0, 0]]) == 0

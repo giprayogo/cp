@@ -2,8 +2,11 @@ use std::cmp::Reverse;
 use std::collections::{BinaryHeap, HashSet};
 
 impl Solution {
-    // OK! Just rather slow...
-    pub fn swim_in_water(mut grid: Vec<Vec<i32>>) -> i32 {
+    // OK! Just rather slow...(optimized!)
+    // on the logic: focus on *cost* of each vertex rather than
+    // what the edge values should be. a variant on dijkstra
+    // pub fn swim_in_water(mut grid: Vec<Vec<i32>>) -> i32 {
+    pub fn swim_in_water(grid: Vec<Vec<i32>>) -> i32 {
         let n = grid.len() - 1;
         let mut v = HashSet::new();
         let mut h = BinaryHeap::new();
@@ -16,7 +19,7 @@ impl Solution {
                 return w.0;
             }
             v.insert((i, j));
-            grid[i][j] = w.0;
+            // grid[i][j] = w.0;
 
             let _i = i.checked_sub(1);
             let _j = j.checked_sub(1);
@@ -24,20 +27,24 @@ impl Solution {
             let __j = (j < n).then_some(j + 1);
 
             if let Some(_i) = _i {
-                let cost = w.0 + 0.max(grid[_i][j] - grid[i][j]);
-                h.push((Reverse(cost), (_i, j)));
+                // let cost = w.0 + 0.max(grid[_i][j] - grid[i][j]);
+                // h.push((Reverse(cost), (_i, j)));
+                h.push((Reverse(w.0.max(grid[_i][j])), (_i, j)));
             }
             if let Some(__i) = __i {
-                let cost = w.0 + 0.max(grid[__i][j] - grid[i][j]);
-                h.push((Reverse(cost), (__i, j)));
+                // let cost = w.0 + 0.max(grid[__i][j] - grid[i][j]);
+                // h.push((Reverse(cost), (__i, j)));
+                h.push((Reverse(w.0.max(grid[__i][j])), (__i, j)))
             }
             if let Some(_j) = _j {
-                let cost = w.0 + 0.max(grid[i][_j] - grid[i][j]);
-                h.push((Reverse(cost), (i, _j)));
+                // let cost = w.0 + 0.max(grid[i][_j] - grid[i][j]);
+                // h.push((Reverse(cost), (i, _j)));
+                h.push((Reverse(w.0.max(grid[i][_j])), (i, _j)));
             }
             if let Some(__j) = __j {
-                let cost = w.0 + 0.max(grid[i][__j] - grid[i][j]);
-                h.push((Reverse(cost), (i, __j)));
+                // let cost = w.0 + 0.max(grid[i][__j] - grid[i][j]);
+                // h.push((Reverse(cost), (i, __j)));
+                h.push((Reverse(w.0.max(grid[i][__j])), (i, __j)));
             }
         }
         unreachable!()

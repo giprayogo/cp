@@ -94,6 +94,7 @@ impl Solution {
 
     // neetcode: can just use normal MST algorithms...remember I need to reach -all-
     // and their minimum time; also for prim's the tree is ~ visited list in DFS
+    // correction: actually dijkstra
     pub fn network_delay_time_2(times: Vec<Vec<i32>>, n: i32, k: i32) -> i32 {
         let k = (k - 1) as usize;
         let mut adj_list = HashMap::new();

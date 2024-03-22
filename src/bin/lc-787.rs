@@ -4,6 +4,8 @@
 use std::collections::HashMap;
 
 impl Solution {
+    // NOTE: from other's leetcode solution; it is also possible to modify Dijkstra
+    // by prioritizing k-depth instead (i.e. try that first!)
     // neetcode: even simpler than the BFS; you know you can just update array mult times!
     // no need to change graph into adj_list blah blash!
     // Lesson: don't over-complicate things...

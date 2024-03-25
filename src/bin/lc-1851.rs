@@ -1,6 +1,6 @@
-// use std::cmp::Reverse;
+use std::cmp::Reverse;
 // use std::collections::{BTreeMap, BTreeSet, BinaryHeap};
-use std::collections::{BTreeMap, BTreeSet};
+use std::collections::{BTreeMap, BTreeSet, BinaryHeap, HashMap};
 
 impl Solution {
     // Simple but TLE! since this *should* be more efficient than filling intervals... did I miss other tricks?
@@ -79,12 +79,47 @@ impl Solution {
         }
         res
     }
+
+    // neetcode: if the queries are also sorted, it is much simpler!
+    // amazingly so! I was stupid.
+    pub fn min_interval_3(mut intervals: Vec<Vec<i32>>, queries: Vec<i32>) -> Vec<i32> {
+        intervals.sort();
+        let mut _queries = queries.clone();
+        _queries.sort();
+        let mut res = HashMap::new();
+        let mut h = BinaryHeap::new();
+        let mut i = 0;
+        'q: for q in _queries.iter() {
+            // intervals which q -can- fit in based on left
+            while i < intervals.len() && intervals[i][0] <= *q {
+                if let [begin, end] = intervals[i][..] {
+                    h.push((Reverse(end - begin + 1), end));
+                    i += 1;
+                }
+            }
+            // pop
+            while let Some((size, end)) = h.peek() {
+                if end < q {
+                    h.pop();
+                } else {
+                    res.insert(q, size.0);
+                    continue 'q;
+                }
+            }
+            res.insert(q, -1);
+        }
+        queries.iter().map(|x| res[x]).collect()
+    }
 }
 
 struct Solution;
 
 fn main() {
-    for f in [Solution::min_interval, Solution::min_interval_2] {
+    for f in [
+        Solution::min_interval,
+        Solution::min_interval_2,
+        Solution::min_interval_3,
+    ] {
         assert_eq!(
             f(
                 vec![vec![1, 4], vec![2, 4], vec![3, 6], vec![4, 4]],

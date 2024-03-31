@@ -38,6 +38,10 @@ impl DetectSquares {
                         let dx = (_x - x).abs();
                         let dy = (_y - y).abs();
                         if dx == dy && dx != 0 {
+                            // neetcode: alternatively I can check the each point as if it is their diagonal,
+                            // then check for the squares; the logic is much simpler that way! (though he forgot to
+                            // multiply by that point itself's count!)
+                            // then multiply... like below:
                             c += v * self.p[&(_x, __y)] * self.p[&(*__x, *_y)];
                         }
                     }

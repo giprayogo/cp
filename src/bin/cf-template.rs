@@ -21,15 +21,20 @@ where
 
     fn solve(&mut self) -> io::Result<()> {
         let mut buffer = String::new();
+        let mut lines = Vec::new();
         while let Ok(v) = self.reader.read_line(&mut buffer) {
             if v == 0 {
                 break;
             }
-            if let Ok(v) = buffer.parse::<i32>() {
+            lines.push(buffer.clone());
+            buffer.clear();
+        }
+
+        for line in lines {
+            if let Ok(v) = line.parse::<i32>() {
                 write!(self.writer, "{}", v)?;
                 self.writer.flush()?;
             }
-            buffer.clear();
         }
         Ok(())
     }

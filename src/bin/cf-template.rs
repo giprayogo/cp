@@ -26,7 +26,7 @@ where
             if v == 0 {
                 break;
             }
-            lines.push(buffer.clone());
+            lines.push(buffer.trim().to_string());
             buffer.clear();
         }
 
@@ -56,9 +56,10 @@ fn test() {
     let mut output = Vec::new();
     let mut solver = Solver::new(input.as_bytes(), &mut output);
     assert!(solver.solve().is_ok());
-    let output = String::from_utf8(output).unwrap();
+    let output_string = String::from_utf8(output).unwrap();
+    let output: Vec<&str> = output_string.trim().split('\n').collect();
 
-    assert_eq!(output, "555");
+    assert_eq!(output, ["555"]);
 }
 
 /*

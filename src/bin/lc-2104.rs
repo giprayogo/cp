@@ -5,7 +5,7 @@ impl Solution {
             return 0;
         }
         let mut sum = 0;
-        let mut mmax = Vec::new();
+        let mut mmax = Vec::with_capacity(nums.len() - 1);
         for i in 0..nums.len() - 1 {
             let left = nums[i] as i64;
             let right = nums[i + 1] as i64;
@@ -18,18 +18,20 @@ impl Solution {
             }
         }
 
-        let mut skip = 0;
-        while skip < mmax.len() - 1 {
+        let mut size = 2;
+        while size < nums.len() {
             let _skip = mmax.len();
-            for i in skip..(mmax.len() - 1) {
+            let mut _mmax = Vec::with_capacity(nums.len() - size);
+            for i in 0..(mmax.len() - 1) {
                 let left = mmax[i];
                 let right = mmax[i + 1];
                 let _left = left.0.min(right.0);
                 let _right = left.1.max(right.1);
                 sum += _right - _left;
-                mmax.push((_left, _right));
+                _mmax.push((_left, _right));
             }
-            skip = _skip;
+            mmax = _mmax;
+            size += 1;
         }
         sum
     }

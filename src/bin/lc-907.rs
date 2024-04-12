@@ -6,10 +6,14 @@ impl Solution {
         let mut stack: Vec<(i32, usize)> = Vec::with_capacity(arr.len());
         let mut count = vec![0; arr.len()];
         // Forward pass
-        for (i, e) in arr.iter().enumerate() {
-            while !stack.is_empty() && *e < stack.last().unwrap().0 {
-                let (_, j) = stack.pop().unwrap();
-                count[j] = i - j;
+        'el: for (i, e) in arr.iter().enumerate() {
+            while let Some(head) = stack.pop() {
+                if *e >= head.0 {
+                    stack.push(head);
+                    stack.push((*e, i));
+                    continue 'el;
+                }
+                count[head.1] = i - head.1;
             }
             stack.push((*e, i));
         }
@@ -17,10 +21,14 @@ impl Solution {
             count[head.1] = arr.len() - head.1;
         }
         // Backward pass
-        for (i, e) in arr.iter().enumerate().rev() {
-            while !stack.is_empty() && *e <= stack.last().unwrap().0 {
-                let (_, j) = stack.pop().unwrap();
-                count[j] *= j - i;
+        'el: for (i, e) in arr.iter().enumerate().rev() {
+            while let Some(head) = stack.pop() {
+                if *e > head.0 {
+                    stack.push(head);
+                    stack.push((*e, i));
+                    continue 'el;
+                }
+                count[head.1] *= head.1 - i;
             }
             stack.push((*e, i));
         }

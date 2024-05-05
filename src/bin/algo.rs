@@ -9,7 +9,7 @@ fn prefix_function_naive(s: &str) -> Vec<i32> {
     let c: Vec<char> = s.chars().collect();
     let n = c.len();
     let mut pi = vec![0; n];
-    for i in 0..n {
+    for i in 1..n {
         for k in 1..=i {
             let prefix = c.iter().take(k);
             let suffix = c.iter().skip(i - k + 1).take(k);
@@ -21,8 +21,19 @@ fn prefix_function_naive(s: &str) -> Vec<i32> {
     pi
 }
 
+fn prefix_function_optimized(s: &str) -> Vec<i32> {
+    let c: Vec<char> = s.chars().collect();
+    let n = c.len();
+    let mut pi = vec![0; n];
+    pi
+}
+
 fn main() {
     // assert eq for all the implementations
+    assert_eq!(prefix_function_naive("a"), [0]);
+    assert_eq!(prefix_function_naive("aa"), [0, 1]);
+    assert_eq!(prefix_function_naive("aaa"), [0, 1, 2]);
+    assert_eq!(prefix_function_naive("aaaa"), [0, 1, 2, 3]);
     assert_eq!(prefix_function_naive("abcabcd"), [0, 0, 0, 1, 2, 3, 0]);
     assert_eq!(prefix_function_naive("aabaaab"), [0, 1, 0, 1, 2, 2, 3]);
 }

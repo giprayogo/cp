@@ -10,7 +10,7 @@ fn prefix_function_naive(s: &str) -> Vec<i32> {
     let n = c.len();
     let mut pi = vec![0; n];
     for i in 0..n {
-        'k: for k in 1..(i + 1) {
+        'k: for k in 1..=i {
             let prefix = c.iter().take(k);
             let suffix = c.iter().skip(i - k + 1).take(k);
             for (a, b) in prefix.zip(suffix) {

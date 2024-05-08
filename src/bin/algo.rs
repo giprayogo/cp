@@ -41,10 +41,34 @@ fn prefix_function_optimized(s: &str) -> Vec<usize> {
     pi
 }
 
+/// Search for pattern p in string s
+#[allow(clippy::needless_range_loop)]
+fn kmp_search(p: &str, s: &str) -> Vec<usize> {
+    let c: Vec<char> = s.chars().collect();
+    let d: Vec<char> = p.chars().collect();
+    let table = prefix_function_optimized(p);
+    let n = c.len();
+    let m = table.len();
+
+    let mut results = Vec::with_capacity(n);
+    let mut j = 0; // -length-
+    for i in 0..n {
+        while j > 0 && c[i] != d[j] {
+            j = table[j - 1];
+        }
+        if c[i] == d[j] {
+            j += 1;
+        }
+        if j == m {
+            results.push(i + 1 - m);
+            j = table[j - 1];
+        }
+    }
+    results
+}
+
 fn main() {
-    // assert eq for all the implementations
     for f in [prefix_function_naive, prefix_function_optimized] {
-        println!("{:?}", f("acbdxxxacbb"));
         assert_eq!(f("a"), [0]);
         assert_eq!(f("aa"), [0, 1]);
         assert_eq!(f("aaa"), [0, 1, 2]);
@@ -52,4 +76,8 @@ fn main() {
         assert_eq!(f("abcabcd"), [0, 0, 0, 1, 2, 3, 0]);
         assert_eq!(f("aabaaab"), [0, 1, 0, 1, 2, 2, 3]);
     }
+
+    assert_eq!(kmp_search("abc", "abcabc"), [0, 3]);
+    assert_eq!(kmp_search("a", "abcabc"), [0, 3]);
+    assert_eq!(kmp_search("aa", "aaa"), [0, 1]);
 }

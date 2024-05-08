@@ -51,7 +51,7 @@ fn kmp_search(p: &str, s: &str) -> Vec<usize> {
     let m = table.len();
 
     let mut results = Vec::with_capacity(n);
-    let mut j = 0; // -length-
+    let mut j = 0;
     for i in 0..n {
         while j > 0 && c[i] != d[j] {
             j = table[j - 1];
@@ -79,5 +79,5 @@ fn main() {
 
     assert_eq!(kmp_search("abc", "abcabc"), [0, 3]);
     assert_eq!(kmp_search("a", "abcabc"), [0, 3]);
-    assert_eq!(kmp_search("aa", "aaa"), [0, 1]);
+    assert_eq!(kmp_search("aa", "aaaa"), [0, 1, 2]);
 }

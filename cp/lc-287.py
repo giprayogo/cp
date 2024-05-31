@@ -1,3 +1,14 @@
+# Notes from personal wiki
+# My take on the hare-tortoise algorithm and position (short)
+# The path before the cycle is a distraction.
+# Pointer that is 2x with 1x always meet on the same spot.
+# When path before cycle is 0 length, this is obvious, for path longer than that,
+# imagine folding the path into the cycle itself, now you can see that both will
+# meet at the same spot mapped into the cycle. Hence starting new pointer will
+# at the same speed will make the slow pointer meet the new slow pointer at the cycle entry.
+# Not self obvious! For me! And there are no good explanation online!
+
+
 class Solution(object):
     # Credit neetcode for the hint
     # I solved it before, but I didn't think of fast-slow pointer solution!

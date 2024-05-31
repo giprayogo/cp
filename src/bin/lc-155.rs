@@ -1,6 +1,14 @@
 // use std::collections::BinaryHeap;
 // use std::cmp::Reverse;
 
+// Note from personal wiki
+// MinStack: One point I missed: the data is only accessed from the right!
+// So in order to find out what item is minimum on the stack to the -left-
+// of current point I just need to create another stack with minimum item
+// of the left one... nice neetcode! Hence he works on google...
+// Luckily that max-O(n) "amortized O(1) algorithm works just fine...
+// (conditional min update)"
+
 #[derive(Debug)]
 // struct MinStack {
 //     heap: BinaryHeap<Reverse<i32>>,
@@ -39,18 +47,18 @@ impl MinStack {
         self.stack.push(val);
         self.min.push(match self.min.last() {
             Some(v) => {
-            unsafe {
-                if val < **v {
-                    // dangerous: I don't know if 
-                    // list get mutated if reallocated!
-                    // quite an important lesson!
-                    self.stack.last().unwrap() as *const i32
-                } else {
-                    *self.min.last().unwrap()
+                unsafe {
+                    if val < **v {
+                        // dangerous: I don't know if
+                        // list get mutated if reallocated!
+                        // quite an important lesson!
+                        self.stack.last().unwrap() as *const i32
+                    } else {
+                        *self.min.last().unwrap()
+                    }
                 }
             }
-            },
-            None => {self.stack.last().unwrap() as *const i32},
+            None => self.stack.last().unwrap() as *const i32,
         });
     }
 
@@ -64,9 +72,7 @@ impl MinStack {
     }
 
     fn get_min(&mut self) -> i32 {
-        unsafe {
-            *self.min.last().unwrap().to_owned()
-        }
+        unsafe { *self.min.last().unwrap().to_owned() }
     }
 }
 // #[allow(unused)]

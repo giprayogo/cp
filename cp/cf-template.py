@@ -1,6 +1,4 @@
 """Python template for CodeForces/AtCoder style competition."""
-import io
-import sys
 
 
 def main():
@@ -14,6 +12,8 @@ if __name__ == "__main__":
     main()
 
 # * Copy from here up *
+import io  # noqa: E402
+import sys  # noqa: E402
 
 
 def test(monkeypatch, capsys):

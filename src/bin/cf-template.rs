@@ -44,7 +44,7 @@ where
     fn solve(&mut self) -> io::Result<()> {
         while let Some(line) = self.input() {
             if let Ok(v) = line.parse::<i32>() {
-                write!(self.writer, "{}", v)?; // TODO: Another helper for this
+                write!(self.writer, "{}", v)?; // TODO: Another helper for this > but if not macro then can't accept any type!
             }
         }
         Ok(())
@@ -61,15 +61,19 @@ fn main() -> Result<()> {
 }
 
 // * Copy from here up *
-//
+
 #[test]
 fn test() {
-    let input = ["THIS", "IS", "a", "generic", "555"].join("\n");
-    assert_eq!(test_helper(&input), ["555"]);
+    let stdin = "THIS
+    IS
+    a
+    generic
+    555";
+    assert_eq!(exec(stdin), ["555"]);
 }
 
 #[allow(unused)]
-fn test_helper(input: &str) -> Vec<String> {
+fn exec(input: &str) -> Vec<String> {
     let mut output = Vec::new();
     let mut solver = Solver::new(input.as_bytes(), &mut output);
     assert!(solver.solve().is_ok());

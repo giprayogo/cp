@@ -9,6 +9,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.11"
 pytest = "^8.2.2"
+setuptools = ">=70"
 
 
 [tool.poetry.group.dev.dependencies]

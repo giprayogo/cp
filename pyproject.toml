@@ -1,21 +1,14 @@
-[tool.poetry]
+[project]
 name = "cp"
 version = "0.1.0"
-description = ""
-authors = ["giprayogo <genki016@gmail.com>"]
-license = "MIT"
+description = "Solutions to Leet Code, UVa, Advent of Code, etc. problems"
+authors = [{ name = "giprayogo" }]
+
 readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
 
-[tool.poetry.dependencies]
-python = "^3.11"
-pytest = "^8.2.2"
-setuptools = ">=70"
-
-
-[tool.poetry.group.dev.dependencies]
-pyright = "^1.1.347"
-ruff = "^0.1.14"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[dependency-groups]
+dev = [
+    "ruff>=0.12.2",
+]

@@ -1,6 +1,5 @@
 class Solution:
     def groupAnagrams(self, strs: list[str]) -> list[list[str]]:
-        "something"
         # Given list of strings strs, I should group all anagrams
         # Constraints:
         # - 1 <= strs.length <= 1000

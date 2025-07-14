@@ -5,7 +5,6 @@ import itertools
 
 class Solution:
     def productExceptSelf(self, nums: list[int]) -> list[int]:
-        """"""
         # For
         # nums = [a, b, c, d]
         # They want

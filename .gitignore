@@ -273,3 +273,7 @@ rustc-ice-*.txt
 #.idea/
 
 .DS_Store
+
+# Non-archived runs
+src/bin/*.rs
+sample*
